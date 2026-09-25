@@ -5,6 +5,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { SectionCard } from "@/components/dashboard/section-card";
 import { StatePanel } from "@/components/ui/state-panel";
 import type { ProgressSnapshot, SubjectProgress } from "@/types/study";
+import { apiUrl } from "@/lib/api";
 
 export default function ProgressPage() {
   const [progress, setProgress] = useState<ProgressSnapshot | null>(null);
@@ -17,14 +18,14 @@ export default function ProgressPage() {
   useEffect(() => {
     const loadProgress = async () => {
       try {
-        const progressResponse = await fetch("/api/progress");
+        const progressResponse = await fetch(apiUrl("/api/progress"));
         if (!progressResponse.ok) {
           throw new Error("Failed to load progress");
         }
         const progressData = await progressResponse.json();
         setProgress(progressData.progress);
 
-        const recsResponse = await fetch("/api/progress?action=recommendations");
+        const recsResponse = await fetch(apiUrl("/api/progress?action=recommendations"));
         if (recsResponse.ok) {
           const recsData = await recsResponse.json();
           setRecommendations(recsData.recommendations || []);
@@ -42,7 +43,7 @@ export default function ProgressPage() {
   const handleRefresh = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/progress?action=refresh");
+      const response = await fetch(apiUrl("/api/progress?action=refresh"));
       if (!response.ok) {
         throw new Error("Failed to refresh progress");
       }

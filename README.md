@@ -129,6 +129,8 @@ Required variables for all features include:
 - `DYNAMODB_TABLE_PREFIX`
 - `BEDROCK_MODEL_ID` (e.g., `anthropic.claude-3-5-sonnet-20241022-v2:0`)
 
+Frontend HTTP requests use `NEXT_PUBLIC_API_BASE_URL` (default: `https://8hq03t4v7j.execute-api.eu-north-1.amazonaws.com`). This public API endpoint is separate from the server-side AWS SDK integrations, which continue to use `AWS_REGION` and the AWS credential chain.
+
 `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_SESSION_TOKEN` are optional local-only overrides. Prefer the AWS SDK default credential chain (AWS CLI profile, IAM role, or workload identity) and never expose these values through `NEXT_PUBLIC_*` variables or browser code.
 
 ## AWS resources and IAM
@@ -192,4 +194,3 @@ All code has been validated with:
 - Spaced repetition recommendations
 - More robust college resource moderation workflow
 - Full AWS production deployment with secure monitoring and incident logging
-

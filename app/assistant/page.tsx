@@ -5,6 +5,7 @@ import type { FormEvent } from "react";
 import { AppShell } from "@/components/layout/app-shell";
 import { SectionCard } from "@/components/dashboard/section-card";
 import { StatePanel } from "@/components/ui/state-panel";
+import { apiUrl } from "@/lib/api";
 
 const promptExamples = [
   "Explain the key concepts in my uploaded notes.",
@@ -25,7 +26,7 @@ export default function AssistantPage() {
     setAnswer(null);
     setError(null);
     try {
-      const response = await fetch("/api/assistant", {
+      const response = await fetch(apiUrl("/api/assistant"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),

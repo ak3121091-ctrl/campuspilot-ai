@@ -5,6 +5,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { SectionCard } from "@/components/dashboard/section-card";
 import { StatePanel } from "@/components/ui/state-panel";
 import type { StudyPlan } from "@/types/study";
+import { apiUrl } from "@/lib/api";
 
 export default function PlannerPage() {
   const [plan, setPlan] = useState<StudyPlan | null>(null);
@@ -14,7 +15,7 @@ export default function PlannerPage() {
   useEffect(() => {
     const loadPlan = async () => {
       try {
-        const response = await fetch("/api/study-planner");
+        const response = await fetch(apiUrl("/api/study-planner"));
         if (!response.ok) {
           throw new Error("Failed to load study plan");
         }
@@ -34,7 +35,7 @@ export default function PlannerPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/study-planner", {
+      const response = await fetch(apiUrl("/api/study-planner"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -61,7 +62,7 @@ export default function PlannerPage() {
 
   const handleMarkComplete = async (taskId: string) => {
     try {
-      const response = await fetch("/api/study-planner", {
+      const response = await fetch(apiUrl("/api/study-planner"), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ taskId }),

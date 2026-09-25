@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { navItems } from "@/lib/mock-data";
+import { apiUrl } from "@/lib/api";
 
 type AppShellProps = {
   title: string;
@@ -15,7 +16,7 @@ export function AppShell({ title, subtitle, children }: AppShellProps) {
   const router = useRouter();
 
   async function handleLogout() {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await fetch(apiUrl("/api/auth/logout"), { method: "POST" });
     router.push("/login");
     router.refresh();
   }

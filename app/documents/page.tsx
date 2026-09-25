@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { AppShell } from "@/components/layout/app-shell";
 import { SectionCard } from "@/components/dashboard/section-card";
 import { StatePanel } from "@/components/ui/state-panel";
+import { apiUrl } from "@/lib/api";
 
 type DocumentRecord = {
   id: string;
@@ -30,7 +31,7 @@ export default function DocumentsPage() {
   async function loadDocuments() {
     setLoading(true);
     try {
-      const response = await fetch("/api/documents");
+      const response = await fetch(apiUrl("/api/documents"));
       const body = (await response.json()) as { documents?: DocumentRecord[]; error?: string };
       if (!response.ok) throw new Error(body.error ?? "Unable to load documents.");
       setDocuments(body.documents ?? []);
@@ -55,7 +56,7 @@ export default function DocumentsPage() {
     formData.append("file", file);
     formData.append("subject", subject);
     try {
-      const response = await fetch("/api/documents", { method: "POST", body: formData });
+      const response = await fetch(apiUrl("/api/documents"), { method: "POST", body: formData });
       const body = (await response.json()) as { error?: string };
       if (!response.ok) throw new Error(body.error ?? "Unable to upload document.");
       setSubject("");

@@ -5,6 +5,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { SectionCard } from "@/components/dashboard/section-card";
 import { StatePanel } from "@/components/ui/state-panel";
 import type { QuizAttempt } from "@/types/quiz";
+import { apiUrl } from "@/lib/api";
 
 export default function QuizPage() {
   const [attempts, setAttempts] = useState<QuizAttempt[]>([]);
@@ -14,7 +15,7 @@ export default function QuizPage() {
   useEffect(() => {
     const loadAttempts = async () => {
       try {
-        const response = await fetch("/api/quiz-attempts");
+        const response = await fetch(apiUrl("/api/quiz-attempts"));
         if (!response.ok) {
           throw new Error("Failed to load attempts");
         }
