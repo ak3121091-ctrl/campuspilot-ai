@@ -4,7 +4,7 @@ import { AUTH_COOKIE_NAME } from "@/lib/server/auth";
 
 const publicPaths = ["/login", "/api/auth/login", "/api/auth/logout"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith("/_next") || pathname.startsWith("/favicon") || pathname === "/") {
